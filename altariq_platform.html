@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الطارق للتعليم الثانوي | أ/ محمد أشرف</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --accent: #f97316;
+            --accent-hover: #ea580c;
+            --secondary: #0f172a;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #eab308;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand h1 {
+            font-size: 1.45rem;
+            font-weight: 800;
+        }
+
+        .brand span {
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        nav button.active, nav button:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-banner {
+            background: linear-gradient(120deg, var(--primary-dark), #2563eb);
+            color: white;
+            border-radius: 20px;
+            padding: 35px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 12px 30px rgba(30, 64, 175, 0.18);
+        }
+
+        .hero-banner h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .hero-banner p {
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            background: var(--accent);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        .card h2, .card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 20px;
+        }
+
+        .auth-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .choice-btn {
+            padding: 11px 22px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: var(--muted);
+            transition: 0.3s;
+        }
+
+        .choice-btn.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.25);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .pass-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .pass-wrapper input {
+            padding-left: 45px;
+        }
+
+        .toggle-pass {
+            position: absolute;
+            left: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.15rem;
+            color: var(--muted);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            background: #f8fafc;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .btn {
+            padding: 11px 22px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary { background: var(--primary); color: white; width: 100%; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-accent { background: var(--accent); color: white; width: 100%; }
+        .btn-accent:hover { background: var(--accent-hover); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-warning { background: var(--warning); color: #000; }
+        .btn-sm { padding: 6px 12px; font-size: 0.85rem; width: auto; }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        .alert-warning { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+
+        .dash-header {
+            background: linear-gradient(135deg, var(--primary-dark), #2563eb);
+            color: white;
+            padding: 22px 26px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-box h4 { font-size: 1.7rem; color: var(--primary); }
+        .stat-box span { font-size: 0.88rem; color: var(--muted); font-weight: 700; }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--muted);
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+
+        .course-thumb {
+            height: 145px;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .course-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent);
+            font-size: 0.78rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .course-body {
+            padding: 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: var(--primary-dark);
+            font-weight: 800;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .badge-pending { background: #fef9c3; color: #854d0e; }
+        .badge-approved { background: #dcfce7; color: #166534; }
+        .badge-rejected { background: #fee2e2; color: #991b1b; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.open { display: flex; }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 650px;
+            width: 100%;
+            padding: 25px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .quiz-option {
+            display: block;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover { background: #f1f5f9; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand">
+        <h1>🎓 منصة الطارق للتعليم الثانوي</h1>
+        <span>إشراف عام: أ/ محمد أشرف</span>
+    </div>
+    <nav id="mainNav">
+        <button onclick="showMainSection('studentAuthSection', this)" class="active">بوابة الطلاب</button>
+        <button onclick="showMainSection('teacherAuthSection', this)">بوابة المعلمين</button>
+        <button onclick="showMainSection('adminLoginSection', this)">إدارة أ/ محمد أشرف</button>
+    </nav>
+</header>
+
+<div class="container">
+
+    <section id="studentAuthSection" class="section active">
+        <div class="hero-banner">
+            <div>
+                <h2>ذاكر بذكاء مع منصة الطارق 🚀</h2>
+                <p>شرح مبسط، مراجعات نهائية، وامتحانات إلكترونية تفاعلية للثانوية العامة تحت إشراف نخبة من المعلمين بقيادة أ/ محمد أشرف.</p>
+            </div>
+            <div class="hero-badge">الثانوية العامة<br>نظام حديث 2026</div>
+        </div>
+
+        <div class="auth-switcher">
+            <button type="button" id="btnStuLogin" class="choice-btn active" onclick="switchStudentTab('login')">🔑 تسجيل دخول طالب</button>
+            <button type="button" id="btnStuReg" class="choice-btn" onclick="switchStudentTab('register')">📝 إنشاء حساب طالب جديد</button>
+        </div>
+
+        <div id="studentLoginBox" class="card" style="max-width: 500px; margin: 0 auto;">
+            <h2>تسجيل دخول الطالب</h2>
+            <p class="subtitle">الدخول متاح بعد موافقة أ/ محمد أشرف على حسابك.</p>
+            <div id="stuLoginMsg"></div>
+            <form id="studentLoginForm">
+                <div class="form-group">
+                    <label>رقم هاتف الطالب *</label>
+                    <input type="tel" id="stuLoginPhone" required placeholder="01xxxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور *</label>
+                    <div class="pass-wrapper">
+                        <input type="password" id="stuLoginPass" required placeholder="••••••••">
+                        <button type="button" class="toggle-pass" onclick="togglePassword('stuLoginPass', this)">👁️</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">دخول المنصة</button>
+            </form>
+        </div>
+
+        <div id="studentRegisterBox" style="display: none;">
+            <div class="card">
+                <h2>إنشاء حساب طالب جديد</h2>
+                <p class="subtitle">سجل بياناتك وسيتم تفعيل حسابك فور مراجعته من أ/ محمد أشرف.</p>
+                <div id="stuRegMsg"></div>
+                <form id="studentRegisterForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>الاسم الرباعي للطالب *</label>
+                            <input type="text" id="regStuName" required placeholder="مثال: أحمد محمد محمود علي">
+                        </div>
+                        <div class="form-group">
+                            <label>رقم هاتف الطالب (للدخول) *</label>
+                            <input type="tel" id="regStuPhone" required placeholder="01xxxxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label>كلمة المرور *</label>
+                            <div class="pass-wrapper">
+                                <input type="password" id="regStuPass" required placeholder="اكتب كلمة مرور قوية">
+                                <button type="button" class="toggle-pass" onclick="togglePassword('regStuPass', this)">👁️</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>الصف الدراسي *</label>
+                            <select id="regStuGrade" required>
+                                <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
+                                <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
+                                <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>رقم ولي الأمر (الأب) *</label>
+                            <input type="tel" id="regStuFather" required placeholder="01xxxxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label>اسم المدرسة *</label>
+                            <input type="text" id="regStuSchool" required placeholder="اكتب اسم مدرستك">
+                        </div>
+                        <div class="form-group">
+                            <label>المحافظة *</label>
+                            <select id="regStuGov" required>
+                                <option value="القاهرة">القاهرة</option>
+                                <option value="الجيزة">الجيزة</option>
+                                <option value="الإسكندرية">الإسكندرية</option>
+                                <option value="الدقهلية">الدقهلية</option>
+                                <option value="الشرقية">الشرقية</option>
+                                <option value="الغربية">الغربية</option>
+                                <option value="المنوفية">المنوفية</option>
+                                <option value="القليوبية">القليوبية</option>
+                                <option value="البحيرة">البحيرة</option>
+                                <option value="أسيوط">أسيوط</option>
+                                <option value="سوهاج">سوهاج</option>
+                                <option value="المنيا">المنيا</option>
+                                <option value="قنا">قنا</option>
+                                <option value="أسوان">أسوان</option>
+                                <option value="محافظة أخرى">محافظة أخرى</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-accent" style="margin-top: 10px;">إرسال طلب التسجيل</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="teacherAuthSection" class="section">
+        <div class="auth-switcher">
+            <button type="button" id="btnTchLogin" class="choice-btn active" onclick="switchTeacherTab('login')">👨‍🏫 دخول المعلمين</button>
+            <button type="button" id="btnTchReg" class="choice-btn" onclick="switchTeacherTab('register')">📋 طلب انضمام معلم جديد</button>
+        </div>
+
+        <div id="teacherLoginBox" class="card" style="max-width: 500px; margin: 0 auto;">
+            <h2>تسجيل دخول المعلمين</h2>
+            <p class="subtitle">أدخل البريد الإلكتروني وكلمة المرور (بعد موافقة أ/ محمد أشرف).</p>
+            <div id="tchLoginMsg"></div>
+            <form id="teacherLoginForm">
+                <div class="form-group">
+                    <label>البريد الإلكتروني المسجل *</label>
+                    <input type="email" id="tchLoginEmail" required placeholder="teacher@example.com">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور *</label>
+                    <div class="pass-wrapper">
+                        <input type="password" id="tchLoginPass" required placeholder="••••••••">
+                        <button type="button" class="toggle-pass" onclick="togglePassword('tchLoginPass', this)">👁️</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">دخول لوحة المعلم</button>
+            </form>
+        </div>
+
+        <div id="teacherRegisterBox" style="display: none; max-width: 650px; margin: 0 auto;">
+            <div class="card">
+                <h2>طلب إنشاء حساب معلم بالمنصة</h2>
+                <p class="subtitle">لن يتم تفعيل حساب المعلم إلا بعد موافقة المشرف العام أ/ محمد أشرف.</p>
+                <div id="tchRegMsg"></div>
+                <form id="teacherRegisterForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>اسم المعلم بالكامل *</label>
+                            <input type="text" id="regTchName" required placeholder="مثال: أ/ محمود حسن">
+                        </div>
+                        <div class="form-group">
+                            <label>البريد الإلكتروني (للدخول) *</label>
+                            <input type="email" id="regTchEmail" required placeholder="teacher@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>المادة الدراسية *</label>
+                            <input type="text" id="regTchSubject" required placeholder="مثال: الفيزياء / اللغة العربية">
+                        </div>
+                        <div class="form-group">
+                            <label>رقم الهاتف *</label>
+                            <input type="tel" id="regTchPhone" required placeholder="01xxxxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label>كلمة المرور *</label>
+                            <div class="pass-wrapper">
+                                <input type="password" id="regTchPass" required placeholder="••••••••">
+                                <button type="button" class="toggle-pass" onclick="togglePassword('regTchPass', this)">👁️</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-accent">إرسال طلب الانضمام للمراجعة</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="adminLoginSection" class="section">
+        <div class="card" style="max-width: 480px; margin: 20px auto; border-top: 5px solid var(--accent);">
+            <h2>🛡️ دخول المشرف العام (أ/ محمد أشرف)</h2>
+            <p class="subtitle">لوحة التحكم الرئيسية لاعتماد الطلاب والمعلمين ومتابعة المنصة.</p>
+            <div id="adminLoginMsg"></div>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label>اسم المشرف *</label>
+                    <input type="text" id="adminNameInput" required placeholder="اكتب: محمد اشرف">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور *</label>
+                    <div class="pass-wrapper">
+                        <input type="password" id="adminPassInput" required placeholder="أدخل كلمة المرور">
+                        <button type="button" class="toggle-pass" onclick="togglePassword('adminPassInput', this)">👁️</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">دخول لوحة الإدارة</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="studentDashboard" class="section">
+        <div class="dash-header">
+            <div>
+                <h2 id="stuDashTitle">مرحباً بك يا بطل 👋</h2>
+                <p id="stuDashMeta" style="opacity: 0.9; font-size: 0.9rem;"></p>
+            </div>
+            <button onclick="logoutAll()" class="btn btn-danger btn-sm">تسجيل خروج</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchDashTab('stu', 'courses', this)">📚 الكورسات والمحاضرات</button>
+            <button class="tab-btn" onclick="switchDashTab('stu', 'exams', this)">📝 الامتحانات الإلكترونية</button>
+            <button class="tab-btn" onclick="switchDashTab('stu', 'grades', this)">🏆 درجاتي وتقاريري</button>
+        </div>
+
+        <div id="stu-tab-courses">
+            <div class="courses-grid" id="studentCoursesList"></div>
+        </div>
+
+        <div id="stu-tab-exams" style="display: none;">
+            <div class="courses-grid" id="studentExamsList"></div>
+        </div>
+
+        <div id="stu-tab-grades" style="display: none;">
+            <div class="card">
+                <h3>سجل درجاتك في الامتحانات</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اسم الامتحان</th>
+                                <th>المعلم</th>
+                                <th>الدرجة</th>
+                                <th>التاريخ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentGradesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="staffDashboard" class="section">
+        <div class="dash-header">
+            <div>
+                <h2 id="staffDashTitle">لوحة التحكم</h2>
+                <p id="staffDashRole" style="opacity: 0.9; font-size: 0.9rem;"></p>
+            </div>
+            <button onclick="logoutAll()" class="btn btn-danger btn-sm">تسجيل خروج</button>
+        </div>
+
+        <div class="stats-row" id="staffStatsRow"></div>
+
+        <div class="tabs" id="staffTabsBar">
+            <button class="tab-btn active" id="tabBtnApprovals" onclick="switchDashTab('staff', 'approvals', this)">✅ طلبات الموافقة (الطلاب والمعلمين)</button>
+            <button class="tab-btn" onclick="switchDashTab('staff', 'students', this)">👨‍🎓 متابعة الطلاب والدرجات</button>
+            <button class="tab-btn" onclick="switchDashTab('staff', 'addCourse', this)">➕ إضافة كورس / محاضرة</button>
+            <button class="tab-btn" onclick="switchDashTab('staff', 'addExam', this)">✍️ إنشاء امتحان إلكتروني</button>
+        </div>
+
+        <div id="staff-tab-approvals">
+            <div class="card">
+                <h3>👨‍🏫 طلبات انضمام المعلمين (تحتاج موافقتك للدخول)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اسم المعلم</th>
+                                <th>البريد الإلكتروني</th>
+                                <th>المادة</th>
+                                <th>الهاتف</th>
+                                <th>الحالة</th>
+                                <th>الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTeachersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👨‍🎓 طلبات تسجيل الطلاب (تحتاج موافقتك للدخول)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اسم الطالب</th>
+                                <th>الهاتف</th>
+                                <th>الصف</th>
+                                <th>المدرسة / المحافظة</th>
+                                <th>الحالة</th>
+                                <th>الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminStudentsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="staff-tab-students" style="display: none;">
+            <div class="card">
+                <h3>📊 متابعة الطلاب المسجلين ونتائجهم</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اسم الطالب</th>
+                                <th>رقم الطالب</th>
+                                <th>رقم ولي الأمر</th>
+                                <th>الصف الدراسي</th>
+                                <th>عدد الامتحانات المحلولة</th>
+                                <th>آخر درجة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="followStudentsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="staff-tab-addCourse" style="display: none;">
+            <div class="card" style="max-width: 650px;">
+                <h3>➕ نشر محاضرة أو كورس جديد للطلاب</h3>
+                <form id="createCourseForm">
+                    <div class="form-group">
+                        <label>عنوان المحاضرة / الكورس *</label>
+                        <input type="text" id="courseTitle" required placeholder="مثال: مراجعة الفصل الأول - التيار الكهربائي">
+                    </div>
+                    <div class="form-group">
+                        <label>الصف الدراسي المستهدف *</label>
+                        <select id="courseGrade">
+                            <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
+                            <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
+                            <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>وصف المحاضرة *</label>
+                        <textarea id="courseDesc" rows="3" required placeholder="تفاصيل الشرح ومحتوى الحصة..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>رابط فيديو الشرح (يوتيوب أو رابط مباشر)</label>
+                        <input type="url" id="courseVideo" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    <button type="submit" class="btn btn-accent">نشر المحاضرة الآن</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="staff-tab-addExam" style="display: none;">
+            <div class="card" style="max-width: 700px;">
+                <h3>✍️ إنشاء امتحان إلكتروني سريع</h3>
+                <form id="createExamForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>عنوان الامتحان *</label>
+                            <input type="text" id="examTitle" required placeholder="مثال: كويز شامل على الوحدة الأولى">
+                        </div>
+                        <div class="form-group">
+                            <label>الصف الدراسي *</label>
+                            <select id="examGrade">
+                                <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
+                                <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
+                                <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr style="margin: 15px 0; border-color: var(--border);">
+                    <div class="form-group">
+                        <label>السؤال الأول *</label>
+                        <input type="text" id="q1Text" required placeholder="اكتب نص السؤال هنا...">
+                        <div class="form-grid" style="margin-top: 8px;">
+                            <input type="text" id="q1Opt0" required placeholder="الاختيار الأول">
+                            <input type="text" id="q1Opt1" required placeholder="الاختيار الثاني">
+                            <input type="text" id="q1Opt2" required placeholder="الاختيار الثالث">
+                            <select id="q1Correct">
+                                <option value="0">الإجابة الصحيحة: الاختيار الأول</option>
+                                <option value="1">الإجابة الصحيحة: الاختيار الثاني</option>
+                                <option value="2">الإجابة الصحيحة: الاختيار الثالث</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>السؤال الثاني *</label>
+                        <input type="text" id="q2Text" required placeholder="اكتب نص السؤال الثاني هنا...">
+                        <div class="form-grid" style="margin-top: 8px;">
+                            <input type="text" id="q2Opt0" required placeholder="الاختيار الأول">
+                            <input type="text" id="q2Opt1" required placeholder="الاختيار الثاني">
+                            <input type="text" id="q2Opt2" required placeholder="الاختيار الثالث">
+                            <select id="q2Correct">
+                                <option value="0">الإجابة الصحيحة: الاختيار الأول</option>
+                                <option value="1">الإجابة الصحيحة: الاختيار الثاني</option>
+                                <option value="2">الإجابة الصحيحة: الاختيار الثالث</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">حفظ ونشر الامتحان للطلاب</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="interactiveModal" class="modal">
+    <div class="modal-content">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h3 id="modalTitle" style="color:var(--primary);"></h3>
+            <button onclick="closeModal()" class="btn btn-danger btn-sm">إغلاق ✖</button>
+        </div>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+    const DEFAULT_COURSES = [
+        {
+            id: 1,
+            title: "المحاضرة التأسيسية الشاملة - نظام حديث",
+            grade: "الصف الثالث الثانوي",
+            teacher: "أ/ محمد أشرف",
+            desc: "تأسيس كامل وأهم الأفكار والتركات التي لا يخرج عنها امتحان الثانوية العامة.",
+            video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        },
+        {
+            id: 2,
+            title: "مراجعة نصف المنهج وحل نماذج الوزارة",
+            grade: "الصف الثاني الثانوي",
+            teacher: "أ/ محمد أشرف",
+            desc: "حل تفصيلي لأهم الأسئلة المتوقعة مع ملخص القوانين والملاحظات.",
+            video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        }
+    ];
+
+    const DEFAULT_EXAMS = [
+        {
+            id: 101,
+            title: "اختبار قياس المستوى الأول",
+            grade: "الصف الثالث الثانوي",
+            teacher: "أ/ محمد أشرف",
+            questions: [
+                { text: "ما هو العامل الأساسي للتفوق في النظام الحديث؟", options: ["الحفظ فقط", "الفهم والتطبيق المستمر", "إهمال المراجعة"], correct: 1 },
+                { text: "أفضل طريقة لتثبيت المعلومات بعد المحاضرة هي:", options: ["حل التدريبات فوراً", "تأجيلها لنهاية العام", "القراءة السريعة فقط"], correct: 0 }
+            ]
+        }
+    ];
+
+    let students = JSON.parse(localStorage.getItem('tarek_students')) || [];
+    let teachers = JSON.parse(localStorage.getItem('tarek_teachers')) || [];
+    let courses = JSON.parse(localStorage.getItem('tarek_courses')) || DEFAULT_COURSES;
+    let exams = JSON.parse(localStorage.getItem('tarek_exams')) || DEFAULT_EXAMS;
+    let results = JSON.parse(localStorage.getItem('tarek_results')) || [];
+    let currentUser = null;
+
+    function saveData() {
+        localStorage.setItem('tarek_students', JSON.stringify(students));
+        localStorage.setItem('tarek_teachers', JSON.stringify(teachers));
+        localStorage.setItem('tarek_courses', JSON.stringify(courses));
+        localStorage.setItem('tarek_exams', JSON.stringify(exams));
+        localStorage.setItem('tarek_results', JSON.stringify(results));
+    }
+
+    function togglePassword(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            btn.textContent = '👁️';
+        }
+    }
+
+    function showMainSection(sectionId, btn) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+        if (btn) {
+            document.querySelectorAll('#mainNav button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    }
+
+    function switchStudentTab(mode) {
+        document.getElementById('studentLoginBox').style.display = mode === 'login' ? 'block' : 'none';
+        document.getElementById('studentRegisterBox').style.display = mode === 'register' ? 'block' : 'none';
+        document.getElementById('btnStuLogin').classList.toggle('active', mode === 'login');
+        document.getElementById('btnStuReg').classList.toggle('active', mode === 'register');
+    }
+
+    function switchTeacherTab(mode) {
+        document.getElementById('teacherLoginBox').style.display = mode === 'login' ? 'block' : 'none';
+        document.getElementById('teacherRegisterBox').style.display = mode === 'register' ? 'block' : 'none';
+        document.getElementById('btnTchLogin').classList.toggle('active', mode === 'login');
+        document.getElementById('btnTchReg').classList.toggle('active', mode === 'register');
+    }
+
+    function switchDashTab(role, tabName, btn) {
+        const prefix = role === 'stu' ? 'stu-tab-' : 'staff-tab-';
+        document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => el.style.display = 'none');
+        document.getElementById(prefix + tabName).style.display = 'block';
+        btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function showAlert(containerId, type, text) {
+        document.getElementById(containerId).innerHTML = `<div class="alert alert-${type}">${text}</div>`;
+    }
+
+    document.getElementById('studentRegisterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const phone = document.getElementById('regStuPhone').value.trim();
+        if (students.some(s => s.phone === phone)) {
+            showAlert('stuRegMsg', 'danger', '⚠️ رقم الهاتف مسجل بالفعل!');
+            return;
+        }
+        students.push({
+            id: Date.now(),
+            name: document.getElementById('regStuName').value.trim(),
+            phone: phone,
+            pass: document.getElementById('regStuPass').value,
+            grade: document.getElementById('regStuGrade').value,
+            father: document.getElementById('regStuFather').value.trim(),
+            school: document.getElementById('regStuSchool').value.trim(),
+            gov: document.getElementById('regStuGov').value,
+            status: 'pending'
+        });
+        saveData();
+        this.reset();
+        showAlert('stuRegMsg', 'success', '✅ تم إرسال طلبك بنجاح! انتظر موافقة أ/ محمد أشرف لتتمكن من تسجيل الدخول.');
+    });
+
+    document.getElementById('studentLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const phone = document.getElementById('stuLoginPhone').value.trim();
+        const pass = document.getElementById('stuLoginPass').value;
+        const student = students.find(s => s.phone === phone && s.pass === pass);
+
+        if (!student) {
+            showAlert('stuLoginMsg', 'danger', '❌ رقم الهاتف أو كلمة المرور غير صحيحة.');
+            return;
+        }
+        if (student.status === 'pending') {
+            showAlert('stuLoginMsg', 'warning', '⏳ حسابك ما زال قيد المراجعة من أ/ محمد أشرف. يرجى الانتظار لحين تفعيله.');
+            return;
+        }
+        if (student.status === 'rejected') {
+            showAlert('stuLoginMsg', 'danger', '🚫 تم رفض طلب انضمامك من قبل إدارة المنصة.');
+            return;
+        }
+
+        currentUser = { role: 'student', data: student };
+        openStudentDashboard();
+    });
+
+    document.getElementById('teacherRegisterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('regTchEmail').value.trim().toLowerCase();
+        if (teachers.some(t => t.email === email)) {
+            showAlert('tchRegMsg', 'danger', '⚠️ هذا البريد الإلكتروني مسجل من قبل!');
+            return;
+        }
+        teachers.push({
+            id: Date.now(),
+            name: document.getElementById('regTchName').value.trim(),
+            email: email,
+            subject: document.getElementById('regTchSubject').value.trim(),
+            phone: document.getElementById('regTchPhone').value.trim(),
+            pass: document.getElementById('regTchPass').value,
+            status: 'pending'
+        });
+        saveData();
+        this.reset();
+        showAlert('tchRegMsg', 'success', '✅ تم إرسال طلب انضمامك كمعلم! سيتم تفعيل حسابك فور موافقة أ/ محمد أشرف.');
+    });
+
+    document.getElementById('teacherLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('tchLoginEmail').value.trim().toLowerCase();
+        const pass = document.getElementById('tchLoginPass').value;
+        const teacher = teachers.find(t => t.email === email && t.pass === pass);
+
+        if (!teacher) {
+            showAlert('tchLoginMsg', 'danger', '❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+            return;
+        }
+        if (teacher.status === 'pending') {
+            showAlert('tchLoginMsg', 'warning', '⏳ حسابك كمعلم لم يتم تفعيله بعد. في انتظار موافقة أ/ محمد أشرف.');
+            return;
+        }
+        if (teacher.status === 'rejected') {
+            showAlert('tchLoginMsg', 'danger', '🚫 تم رفض طلب انضمامك للمنصة.');
+            return;
+        }
+
+        currentUser = { role: 'teacher', data: teacher };
+        openStaffDashboard();
+    });
+
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const nameInput = document.getElementById('adminNameInput').value.trim();
+        const passInput = document.getElementById('adminPassInput').value.trim();
+
+        const validNames = ['محمد اشرف', 'محمد أشرف', 'أ/ محمد أشرف', 'أ/ محمد اشرف'];
+        if (validNames.includes(nameInput) && passInput === 'ma835428') {
+            currentUser = {
+                role: 'admin',
+                data: { name: 'أ/ محمد أشرف', subject: 'المشرف العام للمنصة' }
+            };
+            document.getElementById('adminLoginMsg').innerHTML = '';
+            openStaffDashboard();
+        } else {
+            showAlert('adminLoginMsg', 'danger', '❌ اسم المشرف أو كلمة المرور غير صحيحة!');
+        }
+    });
+
+    function openStudentDashboard() {
+        const stu = currentUser.data;
+        showMainSection('studentDashboard');
+        document.getElementById('stuDashTitle').textContent = `أهلاً بك، ${stu.name} 🎓`;
+        document.getElementById('stuDashMeta').textContent = `${stu.grade} | مدرسة: ${stu.school} (${stu.gov})`;
+
+        const coursesHtml = courses.map(c => `
+            <div class="course-card">
+                <div class="course-thumb">
+                    <span class="course-tag">${c.grade}</span>
+                    <h3>📘 ${c.title}</h3>
+                </div>
+                <div class="course-body">
+                    <div>
+                        <p style="font-size:0.85rem; color:var(--accent); font-weight:700; margin-bottom:5px;">👨‍🏫 ${c.teacher}</p>
+                        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:15px;">${c.desc}</p>
+                    </div>
+                    <button onclick="watchCourse(${c.id})" class="btn btn-primary">مشاهدة المحاضرة ▶️</button>
+                </div>
+            </div>
+        `).join('');
+        document.getElementById('studentCoursesList').innerHTML = coursesHtml || '<p>لا توجد محاضرات متاحة حالياً.</p>';
+
+        const examsHtml = exams.map(ex => `
+            <div class="course-card">
+                <div class="course-thumb" style="background: linear-gradient(135deg, #ea580c, #f97316);">
+                    <span class="course-tag" style="background:var(--primary);">${ex.grade}</span>
+                    <h3>📝 ${ex.title}</h3>
+                </div>
+                <div class="course-body">
+                    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:15px;">إعداد: ${ex.teacher} | عدد الأسئلة: ${ex.questions.length}</p>
+                    <button onclick="startExam(${ex.id})" class="btn btn-accent">بدء الامتحان الآن ✍️</button>
+                </div>
+            </div>
+        `).join('');
+        document.getElementById('studentExamsList').innerHTML = examsHtml || '<p>لا توجد امتحانات متاحة حالياً.</p>';
+
+        renderStudentGrades();
+    }
+
+    function watchCourse(courseId) {
+        const c = courses.find(x => x.id === courseId);
+        document.getElementById('modalTitle').textContent = c.title;
+        document.getElementById('modalBody').innerHTML = `
+            <p style="margin-bottom:12px;"><strong>المعلم:</strong> ${c.teacher} | <strong>الصف:</strong> ${c.grade}</p>
+            <p style="margin-bottom:15px; color:var(--muted);">${c.desc}</p>
+            <div style="background:#0f172a; color:white; padding:25px; border-radius:12px; text-align:center;">
+                <p style="margin-bottom:12px;">🎬 رابط الفيديو التعليمي جاهز للمشاهدة:</p>
+                <a href="${c.video || '#'}" target="_blank" class="btn btn-accent" style="width:auto;">فتح الفيديو في نافذة المشاهدة</a>
+            </div>
+        `;
+        document.getElementById('interactiveModal').classList.add('open');
+    }
+
+    function startExam(examId) {
+        const ex = exams.find(x => x.id === examId);
+        document.getElementById('modalTitle').textContent = ex.title;
+        let qHtml = `<form id="activeExamForm">`;
+        ex.questions.forEach((q, idx) => {
+            qHtml += `
+                <div style="margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid var(--border);">
+                    <p style="font-weight:700; margin-bottom:8px;">${idx + 1}. ${q.text}</p>
+                    ${q.options.map((opt, oIdx) => `
+                        <label class="quiz-option">
+                            <input type="radio" name="q_${idx}" value="${oIdx}" required style="width:auto; margin-left:8px;"> ${opt}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+        });
+        qHtml += `<button type="submit" class="btn btn-success" style="width:100%;">تسليم الإجابات وعرض النتيجة</button></form>`;
+        document.getElementById('modalBody').innerHTML = qHtml;
+        document.getElementById('interactiveModal').classList.add('open');
+
+        document.getElementById('activeExamForm').onsubmit = function(e) {
+            e.preventDefault();
+            let score = 0;
+            ex.questions.forEach((q, idx) => {
+                const chosen = document.querySelector(`input[name="q_${idx}"]:checked`).value;
+                if (parseInt(chosen) === q.correct) score++;
+            });
+
+            results.push({
+                studentPhone: currentUser.data.phone,
+                studentName: currentUser.data.name,
+                examTitle: ex.title,
+                teacher: ex.teacher,
+                score: `${score} / ${ex.questions.length}`,
+                date: new Date().toLocaleDateString('ar-EG')
+            });
+            saveData();
+            renderStudentGrades();
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="alert alert-success" style="text-align:center; font-size:1.1rem;">
+                    🎉 تم تصحيح امتحانك إلكترونياً!<br>
+                    <strong>درجتك هي: ${score} من ${ex.questions.length}</strong>
+                </div>
+            `;
+        };
+    }
+
+    function renderStudentGrades() {
+        const myRes = results.filter(r => r.studentPhone === currentUser.data.phone);
+        document.getElementById('studentGradesTable').innerHTML = myRes.map(r => `
+            <tr>
+                <td>${r.examTitle}</td>
+                <td>${r.teacher}</td>
+                <td><span class="badge badge-approved">${r.score}</span></td>
+                <td>${r.date}</td>
+            </tr>
+        `).join('') || '<tr><td colspan="4" style="text-align:center;">لم تقم بحل أي امتحان بعد.</td></tr>';
+    }
+
+    function closeModal() {
+        document.getElementById('interactiveModal').classList.remove('open');
+    }
+
+    function openStaffDashboard() {
+        showMainSection('staffDashboard');
+        const isAdmin = currentUser.role === 'admin';
+
+        document.getElementById('staffDashTitle').textContent = `مرحباً، ${currentUser.data.name}`;
+        document.getElementById('staffDashRole').textContent = isAdmin
+            ? 'صلاحيات المشرف العام (اعتماد الحسابات + متابعة الطلاب + إدارة المحتوى)'
+            : `معلم مادة: ${currentUser.data.subject} | البريد: ${currentUser.data.email}`;
+
+        const approvalTabBtn = document.getElementById('tabBtnApprovals');
+        if (isAdmin) {
+            approvalTabBtn.style.display = 'inline-block';
+            switchDashTab('staff', 'approvals', approvalTabBtn);
+        } else {
+            approvalTabBtn.style.display = 'none';
+            const stuFollowBtn = document.querySelector('#staffTabsBar button:nth-child(2)');
+            switchDashTab('staff', 'students', stuFollowBtn);
+        }
+
+        renderStaffTables();
+    }
+
+    function renderStaffTables() {
+        const pendingStu = students.filter(s => s.status === 'pending').length;
+        const pendingTch = teachers.filter(t => t.status === 'pending').length;
+        const approvedStu = students.filter(s => s.status === 'approved');
+
+        document.getElementById('staffStatsRow').innerHTML = `
+            <div class="stat-box"><h4>${approvedStu.length}</h4><span>طلاب مفعلون</span></div>
+            <div class="stat-box"><h4>${pendingStu + pendingTch}</h4><span>طلبات بانتظار الموافقة</span></div>
+            <div class="stat-box"><h4>${courses.length}</h4><span>المحاضرات المنشورة</span></div>
+            <div class="stat-box"><h4>${results.length}</h4><span>امتحانات تم حلها</span></div>
+        `;
+
+        document.getElementById('adminTeachersTable').innerHTML = teachers.map(t => `
+            <tr>
+                <td><strong>${t.name}</strong></td>
+                <td>${t.email}</td>
+                <td>${t.subject}</td>
+                <td>${t.phone}</td>
+                <td>${getStatusBadge(t.status)}</td>
+                <td>
+                    <button onclick="updateUserStatus('teacher', ${t.id}, 'approved')" class="btn btn-success btn-sm">موافقة ✅</button>
+                    <button onclick="updateUserStatus('teacher', ${t.id}, 'rejected')" class="btn btn-danger btn-sm">رفض ❌</button>
+                </td>
+            </tr>
+        `).join('') || '<tr><td colspan="6" style="text-align:center;">لا توجد طلبات معلمين حالياً.</td></tr>';
+
+        document.getElementById('adminStudentsTable').innerHTML = students.map(s => `
+            <tr>
+                <td><strong>${s.name}</strong></td>
+                <td>${s.phone}</td>
+                <td>${s.grade}</td>
+                <td>${s.school} - ${s.gov}</td>
+                <td>${getStatusBadge(s.status)}</td>
+                <td>
+                    <button onclick="updateUserStatus('student', ${s.id}, 'approved')" class="btn btn-success btn-sm">قبول ✅</button>
+                    <button onclick="updateUserStatus('student', ${s.id}, 'rejected')" class="btn btn-danger btn-sm">رفض ❌</button>
+                </td>
+            </tr>
+        `).join('') || '<tr><td colspan="6" style="text-align:center;">لا توجد طلبات طلاب حالياً.</td></tr>';
+
+        document.getElementById('followStudentsTable').innerHTML = approvedStu.map(s => {
+            const stuRes = results.filter(r => r.studentPhone === s.phone);
+            const lastScore = stuRes.length ? stuRes[stuRes.length - 1].score : 'لم يختبر بعد';
+            return `
+                <tr>
+                    <td><strong>${s.name}</strong></td>
+                    <td>${s.phone}</td>
+                    <td>${s.father}</td>
+                    <td>${s.grade}</td>
+                    <td>${stuRes.length} امتحان</td>
+                    <td><span class="badge badge-approved">${lastScore}</span></td>
+                </tr>
+            `;
+        }).join('') || '<tr><td colspan="6" style="text-align:center;">لا يوجد طلاب مفعلون حتى الآن.</td></tr>';
+    }
+
+    function getStatusBadge(status) {
+        if (status === 'approved') return '<span class="badge badge-approved">مقبول ومفعل</span>';
+        if (status === 'rejected') return '<span class="badge badge-rejected">مرفوض</span>';
+        return '<span class="badge badge-pending">بانتظار موافقة أ/ محمد</span>';
+    }
+
+    function updateUserStatus(type, id, newStatus) {
+        if (type === 'teacher') {
+            const t = teachers.find(x => x.id === id);
+            if (t) t.status = newStatus;
+        } else {
+            const s = students.find(x => x.id === id);
+            if (s) s.status = newStatus;
+        }
+        saveData();
+        renderStaffTables();
+    }
+
+    document.getElementById('createCourseForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        courses.unshift({
+            id: Date.now(),
+            title: document.getElementById('courseTitle').value.trim(),
+            grade: document.getElementById('courseGrade').value,
+            teacher: currentUser.data.name,
+            desc: document.getElementById('courseDesc').value.trim(),
+            video: document.getElementById('courseVideo').value.trim()
+        });
+        saveData();
+        this.reset();
+        renderStaffTables();
+        alert('✅ تم نشر المحاضرة بنجاح وستظهر لجميع الطلاب!');
+    });
+
+    document.getElementById('createExamForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        exams.unshift({
+            id: Date.now(),
+            title: document.getElementById('examTitle').value.trim(),
+            grade: document.getElementById('examGrade').value,
+            teacher: currentUser.data.name,
+            questions: [
+                {
+                    text: document.getElementById('q1Text').value.trim(),
+                    options: [
+                        document.getElementById('q1Opt0').value.trim(),
+                        document.getElementById('q1Opt1').value.trim(),
+                        document.getElementById('q1Opt2').value.trim()
+                    ],
+                    correct: parseInt(document.getElementById('q1Correct').value)
+                },
+                {
+                    text: document.getElementById('q2Text').value.trim(),
+                    options: [
+                        document.getElementById('q2Opt0').value.trim(),
+                        document.getElementById('q2Opt1').value.trim(),
+                        document.getElementById('q2Opt2').value.trim()
+                    ],
+                    correct: parseInt(document.getElementById('q2Correct').value)
+                }
+            ]
+        });
+        saveData();
+        this.reset();
+        alert('✅ تم إنشاء ونشر الامتحان الإلكتروني بنجاح!');
+    });
+
+    function logoutAll() {
+        currentUser = null;
+        showMainSection('studentAuthSection', document.querySelector('#mainNav button'));
+    }
+</script>
+
+</body>
+</html>
