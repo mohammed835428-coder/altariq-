@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منصة الطارق للتعليم الثانوي - أ/ محمد أشرف</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Tahoma, Arial, sans-serif;
+    }
+    body {
+      background-color: #f3f6fa;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      color: #ffffff;
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+    .brand h1 {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .brand p {
+      font-size: 13px;
+      color: #dbeafe;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      background-color: #ffffff;
+      color: #1d4ed8;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #334155;
+    }
+    input, select {
+      padding: 11px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      background: #f8fafc;
+    }
+    input:focus, select:focus {
+      border-color: #2563eb;
+      background: #ffffff;
+    }
+    .btn-primary {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .btn-success {
+      background-color: #16a34a;
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .btn-danger {
+      background-color: #dc2626;
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .btn-secondary {
+      background-color: #475569;
+      color: #ffffff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .alert {
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .alert-success {
+      background-color: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+    .alert-warning {
+      background-color: #fef9c3;
+      color: #854d0e;
+      border: 1px solid #fde047;
+    }
+    .alert-error {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 780px;
+    }
+    th, td {
+      padding: 12px 10px;
+      text-align: right;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      font-weight: bold;
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .badge-pending {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+    .badge-approved {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+    .badge-rejected {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .course-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      background: #f8fafc;
+    }
+    .course-card h3 {
+      color: #1e3a8a;
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+    .course-card p {
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .stats-bar {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .stat-box {
+      flex: 1;
+      min-width: 150px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 14px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .stat-box span {
+      display: block;
+      font-size: 22px;
+      font-weight: bold;
+      color: #1d4ed8;
+    }
+    .stat-box small {
+      color: #475569;
+      font-size: 13px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <h1>منصة الطارق للتعليم الثانوي</h1>
+      <p>إشراف المعلم: أ/ محمد أشرف</p>
+    </div>
+    <div class="nav-buttons">
+      <button class="nav-btn active" id="btn-tab-register" onclick="switchTab('register')">تسجيل طالب جديد</button>
+      <button class="nav-btn" id="btn-tab-student-login" onclick="switchTab('student-login')">دخول الطالب ومتابعة الكورسات</button>
+      <button class="nav-btn" id="btn-tab-teacher" onclick="switchTab('teacher')">لوحة تحكم المعلم</button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- 1. قسم تسجيل طالب جديد -->
+    <section id="section-register" class="card">
+      <h2 class="card-title">استمارة تسجيل طالب جديد في منصة الطارق</h2>
+      <p class="subtitle">يرجى إدخال البيانات بدقة ليتم إرسال طلبك إلى أ/ محمد أشرف للمراجعة وتفعيل الحساب.</p>
+
+      <form id="studentRegisterForm" onsubmit="handleStudentRegister(event)">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="fullName">الاسم الرباعي للطالب *</label>
+            <input type="text" id="fullName" required placeholder="اكتب اسمك الرباعي كاملاً باللغة العربية" />
+          </div>
+
+          <div class="form-group">
+            <label for="studentPhone">رقم هاتف الطالب (واتساب) *</label>
+            <input type="tel" id="studentPhone" required placeholder="010xxxxxxxx" />
+          </div>
+
+          <div class="form-group">
+            <label for="fatherPhone">رقم ولي الأمر (الأب) *</label>
+            <input type="tel" id="fatherPhone" required placeholder="011xxxxxxxx" />
+          </div>
+
+          <div class="form-group">
+            <label for="motherPhone">رقم ولي الأمر (الأم) *</label>
+            <input type="tel" id="motherPhone" required placeholder="012xxxxxxxx" />
+          </div>
+
+          <div class="form-group">
+            <label for="schoolName">اسم المدرسة *</label>
+            <input type="text" id="schoolName" required placeholder="مثال: مدرسة الثانوية بنين / بنات" />
+          </div>
+
+          <div class="form-group">
+            <label for="governorate">محافظة السكن *</label>
+            <select id="governorate" required>
+              <option value="">-- اختر المحافظة --</option>
+              <option value="القاهرة">القاهرة</option>
+              <option value="الجيزة">الجيزة</option>
+              <option value="الإسكندرية">الإسكندرية</option>
+              <option value="القليوبية">القليوبية</option>
+              <option value="الدقهلية">الدقهلية</option>
+              <option value="الشرقية">الشرقية</option>
+              <option value="الغربية">الغربية</option>
+              <option value="المنوفية">المنوفية</option>
+              <option value="البحيرة">البحيرة</option>
+              <option value="كفر الشيخ">كفر الشيخ</option>
+              <option value="دمياط">دمياط</option>
+              <option value="بورسعيد">بورسعيد</option>
+              <option value="الإسماعيلية">الإسماعيلية</option>
+              <option value="السويس">السويس</option>
+              <option value="الفيوم">الفيوم</option>
+              <option value="بني سويف">بني سويف</option>
+              <option value="المنيا">المنيا</option>
+              <option value="أسيوط">أسيوط</option>
+              <option value="سوهاج">سوهاج</option>
+              <option value="قنا">قنا</option>
+              <option value="الأقصر">الأقصر</option>
+              <option value="أسوان">أسوان</option>
+              <option value="البحر الأحمر">البحر الأحمر</option>
+              <option value="الوادي الجديد">الوادي الجديد</option>
+              <option value="مطروح">مطروح</option>
+              <option value="شمال سيناء">شمال سيناء</option>
+              <option value="جنوب سيناء">جنوب سيناء</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="teacherSelect">المعلم المطلوب الانضمام إليه *</label>
+            <select id="teacherSelect" required>
+              <option value="أ/ محمد أشرف">أ/ محمد أشرف</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">إرسال طلب التسجيل للمعلم</button>
+      </form>
+
+      <div id="registerFeedback"></div>
+    </section>
+
+    <!-- 2. قسم دخول الطالب ومتابعة حالة الطلب والكورسات -->
+    <section id="section-student-login" class="card hidden">
+      <h2 class="card-title">بوابة دخول الطالب — منصة الطارق</h2>
+      <p class="subtitle">أدخل رقم هاتف الطالب المسجل للتحقق من موافقة أ/ محمد أشرف وفتح الكورسات.</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="loginPhone">رقم هاتف الطالب</label>
+          <input type="tel" id="loginPhone" placeholder="أدخل رقم الهاتف المسجل" />
+        </div>
+      </div>
+      <button class="btn-primary" onclick="checkStudentStatus()">دخول وعرض الكورسات</button>
+
+      <div id="studentPortalResult"></div>
+    </section>
+
+    <!-- 3. قسم لوحة تحكم المعلم -->
+    <section id="section-teacher" class="hidden">
+      <!-- شاشة قفل لوحة المعلم -->
+      <div id="teacherAuthBox" class="card">
+        <h2 class="card-title">تسجيل دخول المعلم — أ/ محمد أشرف</h2>
+        <p class="subtitle">أدخل رمز الدخول الخاص بالمعلم لعرض بيانات الطلاب والموافقة على الطلبات (الرمز الافتراضي للتجربة: 1234).</p>
+        <div class="form-group">
+          <label for="teacherPin">رمز الدخول (PIN)</label>
+          <input type="password" id="teacherPin" placeholder="أدخل رمز الدخول" />
+        </div>
+        <button class="btn-primary" onclick="verifyTeacherPin()">دخول لوحة التحكم</button>
+        <div id="teacherPinError"></div>
+      </div>
+
+      <!-- محتوى لوحة المعلم بعد الدخول -->
+      <div id="teacherDashboardContent" class="hidden">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+            <div>
+              <h2 class="card-title" style="border:none; margin:0; padding:0;">لوحة تحكم المعلم: أ/ محمد أشرف</h2>
+              <p class="subtitle" style="margin:0;">إدارة طلبات انضمام الطلاب وبياناتهم الكاملة</p>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="btn-secondary" onclick="exportStudentsCSV()">تحميل بيانات الطلاب (Excel / CSV)</button>
+              <button class="btn-danger" onclick="logoutTeacher()">تسجيل خروج</button>
+            </div>
+          </div>
+
+          <div class="stats-bar">
+            <div class="stat-box">
+              <span id="statTotal">0</span>
+              <small>إجمالي الطلاب</small>
+            </div>
+            <div class="stat-box">
+              <span id="statPending" style="color:#d97706;">0</span>
+              <small>طلبات قيد الانتظار</small>
+            </div>
+            <div class="stat-box">
+              <span id="statApproved" style="color:#16a34a;">0</span>
+              <small>طلاب تم قبولهم</small>
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>الاسم الرباعي</th>
+                  <th>رقم الطالب</th>
+                  <th>رقم الأب</th>
+                  <th>رقم الأم</th>
+                  <th>المدرسة</th>
+                  <th>المحافظة</th>
+                  <th>الحالة</th>
+                  <th>إجراء المعلم</th>
+                </tr>
+              </thead>
+              <tbody id="studentsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- إدارة الكورسات -->
+        <div class="card">
+          <h2 class="card-title">إضافة كورس جديد للطلاب المقبولين</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="newCourseTitle">عنوان الكورس</label>
+              <input type="text" id="newCourseTitle" placeholder="مثال: المراجعة النهائية - الفصل الأول" />
+            </div>
+            <div class="form-group">
+              <label for="newCourseDesc">وصف مختصر للكورس</label>
+              <input type="text" id="newCourseDesc" placeholder="شرح كامل + حل تدريبات شاملة" />
+            </div>
+          </div>
+          <button class="btn-primary" onclick="addNewCourse()">إضافة الكورس للمنصة</button>
+        </div>
+
+        <!-- ربط اختياري بـ Google Sheets -->
+        <div class="card">
+          <h2 class="card-title">إعدادات الربط السحابي (اختياري)</h2>
+          <p class="subtitle">إذا قمت بإنشاء رابط Google Apps Script لحفظ النسخ الاحتياطية على Google Sheets، الصقه هنا:</p>
+          <div class="form-group">
+            <input type="url" id="webhookUrlInput" placeholder="https://script.google.com/macros/s/..." />
+          </div>
+          <button class="btn-secondary" style="margin-top:10px;" onclick="saveWebhookUrl()">حفظ رابط Google Sheets</button>
+          <span id="webhookSavedMsg" style="font-size:13px; color:#16a34a; margin-right:10px;"></span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة &copy; 2026 منصة الطارق للتعليم الثانوي — أ/ محمد أشرف
+  </footer>
+
+  <script>
+    const STORAGE_STUDENTS_KEY = 'altariq_students_v1';
+    const STORAGE_COURSES_KEY = 'altariq_courses_v1';
+    const STORAGE_WEBHOOK_KEY = 'altariq_webhook_v1';
+
+    const defaultCourses = [
+      {
+        id: 'c1',
+        title: 'المراجعة النهائية الشاملة - الصف الثالث الثانوي',
+        desc: 'شرح تفصيلي لجميع أجزاء المنهج مع حل نماذج امتحانات شاملة — أ/ محمد أشرف'
+      },
+      {
+        id: 'c2',
+        title: 'كورس التأسيس للمرحلة الثانوية',
+        desc: 'تأسيس قوي من الصفر وتدريبات تفاعلية مستمرة — أ/ محمد أشرف'
+      }
+    ];
+
+    function getStudents() {
+      const raw = localStorage.getItem(STORAGE_STUDENTS_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }
+
+    function saveStudents(list) {
+      localStorage.setItem(STORAGE_STUDENTS_KEY, JSON.stringify(list));
+    }
+
+    function getCourses() {
+      const raw = localStorage.getItem(STORAGE_COURSES_KEY);
+      if (!raw) {
+        localStorage.setItem(STORAGE_COURSES_KEY, JSON.stringify(defaultCourses));
+        return defaultCourses;
+      }
+      return JSON.parse(raw);
+    }
+
+    function switchTab(tabName) {
+      document.getElementById('section-register').classList.add('hidden');
+      document.getElementById('section-student-login').classList.add('hidden');
+      document.getElementById('section-teacher').classList.add('hidden');
+
+      document.getElementById('btn-tab-register').classList.remove('active');
+      document.getElementById('btn-tab-student-login').classList.remove('active');
+      document.getElementById('btn-tab-teacher').classList.remove('active');
+
+      document.getElementById('section-' + tabName).classList.remove('hidden');
+      document.getElementById('btn-tab-' + tabName).classList.add('active');
+
+      if (tabName === 'teacher') {
+        renderTeacherTable();
+      }
+    }
+
+    function handleStudentRegister(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('fullName').value.trim();
+      const studentPhone = document.getElementById('studentPhone').value.trim();
+      const fatherPhone = document.getElementById('fatherPhone').value.trim();
+      const motherPhone = document.getElementById('motherPhone').value.trim();
+      const schoolName = document.getElementById('schoolName').value.trim();
+      const governorate = document.getElementById('governorate').value;
+      const teacher = document.getElementById('teacherSelect').value;
+
+      if (fullName.split(/\s+/).length < 4) {
+        document.getElementById('registerFeedback').innerHTML =
+          '<div class="alert alert-error">يرجى إدخال الاسم الرباعي كاملاً (4 أسماء على الأقل).</div>';
+        return;
+      }
+
+      const students = getStudents();
+      const existing = students.find(s => s.studentPhone === studentPhone);
+      if (existing) {
+        document.getElementById('registerFeedback').innerHTML =
+          '<div class="alert alert-warning">رقم هاتف الطالب مسجل بالفعل! يمكنك الدخول من تبويب "دخول الطالب" لمتابعة حالة طلبك.</div>';
+        return;
+      }
+
+      const newStudent = {
+        id: Date.now().toString(),
+        fullName,
+        studentPhone,
+        fatherPhone,
+        motherPhone,
+        schoolName,
+        governorate,
+        teacher,
+        status: 'pending',
+        createdAt: new Date().toLocaleDateString('ar-EG')
+      };
+
+      students.unshift(newStudent);
+      saveStudents(students);
+
+      // إرسال البيانات إلى Google Sheets إذا تم ضبط الرابط
+      const webhookUrl = localStorage.getItem(STORAGE_WEBHOOK_KEY);
+      if (webhookUrl) {
+        fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newStudent)
+        }).catch(() => {});
+      }
+
+      document.getElementById('studentRegisterForm').reset();
+      document.getElementById('registerFeedback').innerHTML =
+        '<div class="alert alert-success">تم إرسال بياناتك بنجاح إلى ' + teacher + '! سيتم تفعيل حسابك فور مراجعة البيانات والموافقة عليها.</div>';
+    }
+
+    function checkStudentStatus() {
+      const phone = document.getElementById('loginPhone').value.trim();
+      const resultBox = document.getElementById('studentPortalResult');
+      if (!phone) {
+        resultBox.innerHTML = '<div class="alert alert-error">يرجى إدخال رقم هاتف الطالب.</div>';
+        return;
+      }
+
+      const students = getStudents();
+      const student = students.find(s => s.studentPhone === phone);
+
+      if (!student) {
+        resultBox.innerHTML = '<div class="alert alert-error">هذا الرقم غير مسجل على منصة الطارق. يرجى تسجيل حساب جديد أولاً.</div>';
+        return;
+      }
+
+      if (student.status === 'pending') {
+        resultBox.innerHTML =
+          '<div class="alert alert-warning">أهلاً يا ' + student.fullName + '، طلبك لا يزال قيد المراجعة لدى ' + student.teacher + '. يرجى المحاولة لاحقاً بعد الموافقة.</div>';
+        return;
+      }
+
+      if (student.status === 'rejected') {
+        resultBox.innerHTML =
+          '<div class="alert alert-error">عذراً يا ' + student.fullName + '، تم رفض طلب الانضمام من قبل المعلم. يرجى التواصل مع إدارة المنصة.</div>';
+        return;
+      }
+
+      // الطالب مقبول -> عرض الكورسات
+      const courses = getCourses();
+      let coursesHtml = '<div class="alert alert-success">مرحباً بك يا ' + student.fullName + ' — حسابك مفعّل لدى ' + student.teacher + '</div>';
+      coursesHtml += '<div class="courses-grid">';
+      courses.forEach(c => {
+        coursesHtml += `
+          <div class="course-card">
+            <h3>${c.title}</h3>
+            <p>${c.desc}</p>
+            <button class="btn-primary" onclick="alert('جارٍ فتح محتوى كورس: ${c.title}')">مشاهدة الدروس الآن</button>
+          </div>
+        `;
+      });
+      coursesHtml += '</div>';
+      resultBox.innerHTML = coursesHtml;
+    }
+
+    function verifyTeacherPin() {
+      const pin = document.getElementById('teacherPin').value.trim();
+      if (pin === '1234') {
+        document.getElementById('teacherAuthBox').classList.add('hidden');
+        document.getElementById('teacherDashboardContent').classList.remove('hidden');
+        document.getElementById('webhookUrlInput').value = localStorage.getItem(STORAGE_WEBHOOK_KEY) || '';
+        renderTeacherTable();
+      } else {
+        document.getElementById('teacherPinError').innerHTML =
+          '<div class="alert alert-error">رمز الدخول غير صحيح. الرمز الافتراضي هو 1234</div>';
+      }
+    }
+
+    function logoutTeacher() {
+      document.getElementById('teacherPin').value = '';
+      document.getElementById('teacherAuthBox').classList.remove('hidden');
+      document.getElementById('teacherDashboardContent').classList.add('hidden');
+    }
+
+    function renderTeacherTable() {
+      const students = getStudents();
+      const tbody = document.getElementById('studentsTableBody');
+
+      document.getElementById('statTotal').textContent = students.length;
+      document.getElementById('statPending').textContent = students.filter(s => s.status === 'pending').length;
+      document.getElementById('statApproved').textContent = students.filter(s => s.status === 'approved').length;
+
+      if (students.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#64748b; padding:20px;">لا يوجد طلاب مسجلون حتى الآن.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = students.map(s => {
+        let badge = '<span class="badge badge-pending">قيد الانتظار</span>';
+        if (s.status === 'approved') badge = '<span class="badge badge-approved">مقبول</span>';
+        if (s.status === 'rejected') badge = '<span class="badge badge-rejected">مرفوض</span>';
+
+        return `
+          <tr>
+            <td><strong>${s.fullName}</strong></td>
+            <td dir="ltr">${s.studentPhone}</td>
+            <td dir="ltr">${s.fatherPhone}</td>
+            <td dir="ltr">${s.motherPhone}</td>
+            <td>${s.schoolName}</td>
+            <td>${s.governorate}</td>
+            <td>${badge}</td>
+            <td>
+              <div style="display:flex; gap:6px;">
+                <button class="btn-success" onclick="updateStudentStatus('${s.id}', 'approved')">قبول</button>
+                <button class="btn-danger" onclick="updateStudentStatus('${s.id}', 'rejected')">رفض</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updateStudentStatus(id, status) {
+      const students = getStudents();
+      const idx = students.findIndex(s => s.id === id);
+      if (idx !== -1) {
+        students[idx].status = status;
+        saveStudents(students);
+        renderTeacherTable();
+      }
+    }
+
+    function addNewCourse() {
+      const title = document.getElementById('newCourseTitle').value.trim();
+      const desc = document.getElementById('newCourseDesc').value.trim();
+      if (!title || !desc) {
+        alert('يرجى إدخال عنوان الكورس ووصفه.');
+        return;
+      }
+      const courses = getCourses();
+      courses.push({ id: 'c' + Date.now(), title, desc });
+      localStorage.setItem(STORAGE_COURSES_KEY, JSON.stringify(courses));
+      document.getElementById('newCourseTitle').value = '';
+      document.getElementById('newCourseDesc').value = '';
+      alert('تمت إضافة الكورس بنجاح وسيظهر للطلاب المقبولين!');
+    }
+
+    function saveWebhookUrl() {
+      const url = document.getElementById('webhookUrlInput').value.trim();
+      localStorage.setItem(STORAGE_WEBHOOK_KEY, url);
+      document.getElementById('webhookSavedMsg').textContent = 'تم حفظ الرابط بنجاح!';
+    }
+
+    function exportStudentsCSV() {
+      const students = getStudents();
+      if (students.length === 0) {
+        alert('لا توجد بيانات طلاب لتصديرها.');
+        return;
+      }
+      const headers = ['الاسم الرباعي', 'رقم الطالب', 'رقم الأب', 'رقم الأم', 'المدرسة', 'المحافظة', 'الحالة'];
+      const rows = students.map(s => [
+        s.fullName,
+        s.studentPhone,
+        s.fatherPhone,
+        s.motherPhone,
+        s.schoolName,
+        s.governorate,
+        s.status === 'approved' ? 'مقبول' : (s.status === 'rejected' ? 'مرفوض' : 'قيد الانتظار')
+      ]);
+      let csv = '﻿' + headers.join(',') + '
+' + rows.map(r => r.map(v => `"${v}"`).join(',')).join('
+');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'طلاب_منصة_الطارق.csv';
+      link.click();
+    }
+  </script>
+</body>
+</html>
